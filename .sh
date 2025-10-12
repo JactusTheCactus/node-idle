@@ -9,3 +9,5 @@ if ! flag local; then
 	npm install -g pkg
 fi
 pkg . --targets latest-linux,latest-win,latest-macos
+chmod +x idle-linux
+./idle-linux
