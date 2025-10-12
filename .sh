@@ -6,6 +6,6 @@ flag() {
 	done
 }
 if ! flag local; then
-	npm ci
+	npm install -g pkg
 fi
 pkg . --targets node24-linux-x64,node24-win-x64,node24-macos-x64
