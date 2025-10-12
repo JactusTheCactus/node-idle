@@ -8,4 +8,4 @@ flag() {
 if ! flag local; then
 	npm install -g pkg
 fi
-pkg . --targets node24-linux-x64,node24-win-x64,node24-macos-x64
+pkg . --targets node22-linux-x64,node22-win-x64,node22-macos-x64
