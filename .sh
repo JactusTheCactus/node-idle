@@ -5,4 +5,7 @@ flag() {
 		[[ -e ".flags/$f" ]] || return 1
 	done
 }
+if ! flag local; then
+	npm ci
+fi
 pkg . --targets node24-linux-x64,node24-win-x64,node24-macos-x64
