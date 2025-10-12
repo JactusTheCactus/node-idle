@@ -6,7 +6,7 @@ flag() {
 	done
 }
 if ! flag local; then
-	npm ci
+	npm install -g pkg
 fi
 pkg . --targets latest-linux,latest-win,latest-macos
 chmod +x idle-linux
