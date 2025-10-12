@@ -8,4 +8,4 @@ flag() {
 if ! flag local; then
 	npm install -g pkg
 fi
-pkg . --targets latest-linux-x64,latest-win-x64,latest-macos-x64
+pkg . --targets latest-linux,latest-win,latest-macos
