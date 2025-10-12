@@ -8,7 +8,7 @@ flag() {
 if ! flag local; then
 	npm install -g pkg
 fi
-pkg . --targets latest-linux,latest-win,latest-macos
+pkg script.js --targets latest-linux,latest-win,latest-macos
 chmod +x idle-linux
 if flag local; then
 	./idle-linux
