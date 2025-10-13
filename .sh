@@ -27,5 +27,6 @@ if ! flag local; then
 		export TERM=xterm
 		clear
 	fi
-	"./$EXEC"
+	#"./$EXEC"
+	node "$SCRIPT.js"
 fi
