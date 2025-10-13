@@ -23,6 +23,9 @@ done
 pkg "$SCRIPT.js" --targets latest-linux,latest-win,latest-macos
 if ! flag local; then
 	chmod +x "$EXEC"
-	clear
+	if ! clear; then
+		export TERM=xterm
+		clear
+	fi
 	"./$EXEC"
 fi
