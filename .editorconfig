@@ -1,2 +1,7 @@
 root = true
 [*]
+indent_style = tab
+tab_width = 4
+[*.y{am,m}l]
+indent_style = space
+indent_size = 2
