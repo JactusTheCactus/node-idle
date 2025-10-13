@@ -14,7 +14,9 @@ EX=( \
 	win.exe \
 )
 for e in "${EX[@]}"; do
-	rm -rf "*-$e"
+	for i in *-$e; do
+		echo $i
+	done
 done
 pkg script.js --targets latest-linux,latest-win,latest-macos
 if flag local; then
