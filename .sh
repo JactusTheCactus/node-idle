@@ -16,12 +16,12 @@ EX=( \
 	win.exe \
 )
 for e in "${EX[@]}"; do
-	for i in *-$e; do
-		rm -rf $i
+	for i in "*-$e"; do
+		rm -rf "$i"
 	done
 done
-pkg $SCRIPT.js --targets latest-linux,latest-win,latest-macos
+pkg "$SCRIPT.js" --targets latest-linux,latest-win,latest-macos
 if flag local; then
-	chmod +x $EXEC
-	./$EXEC
+	chmod +x "$EXEC"
+	"./$EXEC"
 fi
