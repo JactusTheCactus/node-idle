@@ -20,7 +20,7 @@ for e in "${EX[@]}"; do
 		rm -rf $i
 	done
 done
-pkg script.js --targets latest-linux,latest-win,latest-macos
+pkg $SCRIPT.js --targets latest-linux,latest-win,latest-macos
 if flag local; then
 	chmod +x $EXEC
 	./$EXEC
