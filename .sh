@@ -15,7 +15,7 @@ EX=( \
 )
 for e in "${EX[@]}"; do
 	for i in *-$e; do
-		echo $i
+		rm -rf $i
 	done
 done
 pkg script.js --targets latest-linux,latest-win,latest-macos
