@@ -21,7 +21,7 @@ for e in "${EX[@]}"; do
 	done
 done
 pkg $SCRIPT.js --targets latest-linux,latest-win,latest-macos
-if flag local; then
+if ! flag local; then
 	chmod +x $EXEC
 	./$EXEC
 fi
