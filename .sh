@@ -5,6 +5,8 @@ flag() {
 		[[ -e ".flags/$f" ]] || return 1
 	done
 }
+SCRIPT=app
+EXEC=$SCRIPT-linux
 if ! flag local; then
 	npm install -g pkg
 fi
@@ -20,6 +22,6 @@ for e in "${EX[@]}"; do
 done
 pkg script.js --targets latest-linux,latest-win,latest-macos
 if flag local; then
-	chmod +x idle-linux
-	./idle-linux
+	chmod +x $EXEC
+	./$EXEC
 fi
