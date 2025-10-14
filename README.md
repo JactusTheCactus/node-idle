@@ -461,7 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-14 00:17:20 -0700
+Last updated 2025-10-14 07:19:57 UTC
 </div>
 </div>
 </body>
