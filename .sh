@@ -12,6 +12,7 @@ SCRIPT=app
 BIN=bin
 EXEC=$BIN/$SCRIPT-linux
 if ! flag local; then
+	npm install --save-dev undici-types
 	for i in pkg typescript asciidoctor; do
 		npm install -g $i
 	done
