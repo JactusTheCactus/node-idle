@@ -1,7 +1,7 @@
 _config:
-  es: &es ESNext
-  t: &t true
-  f: &f false
+  - &es ESNext
+  - &t true
+  - &f false
 compilerOptions:
   target: *es
   module: *es
