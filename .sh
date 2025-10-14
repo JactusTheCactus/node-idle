@@ -25,7 +25,7 @@ ymlToJson tsconfig
 tsc
 for ascii in docs/*.adoc; do
 	md=${ascii%.adoc}.md
-	asciidoctor $ascii -o=$md
+	asciidoctor $ascii -o=$md -s
 	mv $md ${md#docs/}
 done
 if flag local; then
