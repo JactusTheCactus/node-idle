@@ -12,7 +12,7 @@ SCRIPT=app
 BIN=bin
 EXEC=$BIN/$SCRIPT-linux
 if ! flag local; then
-	for i in pkg typescript; do
+	for i in pkg typescript asciidoctor; do
 		npm install -g $i
 	done
 fi
@@ -23,7 +23,9 @@ if [ -f *.yaml ]; then
 fi
 ymlToJson tsconfig
 tsc
-node ./asciidoc.js
+for ascii in *.adoc; do
+	asciidoctor $ascii -o="${ascii%.adoc}.md"
+done
 rm -rf $BIN/*
 TARGETS=
 for i in linux macos win; do

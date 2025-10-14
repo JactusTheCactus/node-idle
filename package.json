@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "asciidoctor": "^3.0.4",
     "pkg": "^5.8.1",
     "typescript": "^5.9.3"
   },

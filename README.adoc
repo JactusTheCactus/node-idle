@@ -1,3 +1,5 @@
+:allow-uri-read:
+
 .tsconfig.yml
 [source,yml]
 ----
