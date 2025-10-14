@@ -1,4 +1,4 @@
 compilerOptions:
   target: esnext
-  module: nodenext
+  module: esnext
   strict: false
