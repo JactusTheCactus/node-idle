@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 process.stdin.setRawMode(true);
 process.stdin.setEncoding('utf8');
 const keyCallbacks = {};

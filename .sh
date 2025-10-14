@@ -23,6 +23,7 @@ if [ -f *.yaml ]; then
 fi
 ymlToJson tsconfig
 tsc
+node ./asciidoc.js
 rm -rf $BIN/*
 TARGETS=
 for i in linux macos win; do
@@ -36,7 +37,7 @@ if flag local; then
 	rm -rf $SCRIPT.log
 	if flag log; then
 		./$EXEC > $SCRIPT.log
-	else
-		./$EXEC
+	# else
+		# ./$EXEC
 	fi
 fi

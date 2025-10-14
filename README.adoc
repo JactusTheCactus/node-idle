@@ -1,0 +1,11 @@
+.tsconfig.yml
+[source,yml]
+----
+include::tsconfig.yml[]
+----
+
+.tsconfig.json
+[source,json]
+----
+include::tsconfig.json[]
+----
