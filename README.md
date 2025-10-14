@@ -2,9 +2,12 @@
 <div class="title">tsconfig.yml</div>
 <div class="content">
 <pre class="highlight"><code class="language-yml" data-lang="yml">compilerOptions:
-  moduleResolution: nodenext
-  module: nodenext
-  esModuleInterop: false</code></pre>
+  target: ESNext
+  module: ESNext
+  moduleResolution: Bundler
+  strict: false
+  esModuleInterop: false
+  forceConsistentCasingInFileNames: true</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -12,9 +15,12 @@
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
   "compilerOptions": {
-    "moduleResolution": "nodenext",
-    "module": "nodenext",
-    "esModuleInterop": false
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": false,
+    "esModuleInterop": false,
+    "forceConsistentCasingInFileNames": true
   }
 }</code></pre>
 </div>
