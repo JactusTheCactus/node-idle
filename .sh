@@ -23,21 +23,25 @@ if [ -f *.yaml ]; then
 fi
 ymlToJson tsconfig
 tsc
-for ascii in *.adoc; do
-	asciidoctor $ascii -o="${ascii%.adoc}.md"
+for ascii in docs/*.adoc; do
+	md=${ascii%.adoc}.md
+	asciidoctor $ascii -o=$md
+	mv $md ${md#docs/}
 done
 if flag local; then
-	rm -rf $BIN/*
-	TARGETS=
-	for i in linux macos win; do
-		TARGETS+=latest-${i%.exe},
-	done
-	pkg $SCRIPT.js \
-		--targets ${TARGETS%,} \
-		--out-path $BIN
-	chmod +x $EXEC
-	rm -rf $SCRIPT.log
+	if flag build; then
+		rm -rf $BIN/*
+		TARGETS=
+		for i in linux macos win; do
+			TARGETS+=latest-${i%.exe},
+		done
+		pkg $SCRIPT.js \
+			--targets ${TARGETS%,} \
+			--out-path $BIN
+		chmod +x $EXEC
+	fi
 	if flag log; then
+		rm -rf $SCRIPT.log
 		./$EXEC > $SCRIPT.log
 	# else
 		# ./$EXEC

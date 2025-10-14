@@ -3,11 +3,11 @@
 .tsconfig.yml
 [source,yml]
 ----
-include::tsconfig.yml[]
+include::../tsconfig.yml[]
 ----
 
 .tsconfig.json
 [source,json]
 ----
-include::tsconfig.json[]
+include::../tsconfig.json[]
 ----
