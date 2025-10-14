@@ -6,7 +6,7 @@ flag() {
 	done
 }
 ymlToJson() {
-	yq -o=json eval $1.yml > $1.json
+	yq 'del(.["_"]?, .__*, ._template?, ._defaults?)' -o=json "$1.yml" > "$1.json"
 }
 SCRIPT=app
 BIN=bin
