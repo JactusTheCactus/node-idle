@@ -1,6 +1,8 @@
+_config:
+  es: &es ESNext
 compilerOptions:
-  target: ESNext
-  module: ESNext
+  target: *es
+  module: *es
   moduleResolution: Bundler
   strict: false
   esModuleInterop: false
