@@ -442,13 +442,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="highlight"><code class="language-yml" data-lang="yml">_config:
   es: &amp;es ESNext
+  t: &amp;t true
+  f: &amp;f false
 compilerOptions:
   target: *es
   module: *es
   moduleResolution: Bundler
-  strict: false
-  esModuleInterop: false
-  forceConsistentCasingInFileNames: true</code></pre>
+  strict: *f
+  esModuleInterop: *f
+  forceConsistentCasingInFileNames: *t</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -456,7 +458,9 @@ compilerOptions:
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
   "_config": {
-    "es": "ESNext"
+    "es": "ESNext",
+    "t": true,
+    "f": false
   },
   "compilerOptions": {
     "target": "ESNext",
@@ -472,7 +476,7 @@ compilerOptions:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-14 12:09:06 UTC
+Last updated 2025-10-14 12:11:14 UTC
 </div>
 </div>
 </body>

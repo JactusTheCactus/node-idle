@@ -1,6 +1,8 @@
 {
   "_config": {
-    "es": "ESNext"
+    "es": "ESNext",
+    "t": true,
+    "f": false
   },
   "compilerOptions": {
     "target": "ESNext",
