@@ -6,7 +6,7 @@ flag() {
 	done
 }
 ymlToJson() {
-	yq eval 'del(.[] | select(tag == "!!map") | with_entries(select(.key | test("^_"))))' "$1.yml" -o=json > "$1.json"
+	yq eval "$1.yml" -o=json > "$1.json"
 }
 SCRIPT=app
 BIN=bin
