@@ -3,8 +3,7 @@
 <div class="content">
 <pre class="highlight"><code class="language-yml" data-lang="yml">compilerOptions:
   moduleResolution: nodenext
-  module: nodenext
-  strict: false</code></pre>
+  module: nodenext</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -13,8 +12,7 @@
 <pre class="highlight"><code class="language-json" data-lang="json">{
   "compilerOptions": {
     "moduleResolution": "nodenext",
-    "module": "nodenext",
-    "strict": false
+    "module": "nodenext"
   }
 }</code></pre>
 </div>
