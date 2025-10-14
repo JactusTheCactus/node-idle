@@ -441,9 +441,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">tsconfig.yml</div>
 <div class="content">
 <pre class="highlight"><code class="language-yml" data-lang="yml">_config:
-  es: &amp;es ESNext
-  t: &amp;t true
-  f: &amp;f false
+  - &amp;es ESNext
+  - &amp;t true
+  - &amp;f false
 compilerOptions:
   target: *es
   module: *es
@@ -457,11 +457,11 @@ compilerOptions:
 <div class="title">tsconfig.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
-  "_config": {
-    "es": "ESNext",
-    "t": true,
-    "f": false
-  },
+  "_config": [
+    "ESNext",
+    true,
+    false
+  ],
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
@@ -476,7 +476,7 @@ compilerOptions:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-14 12:11:14 UTC
+Last updated 2025-10-14 12:13:09 UTC
 </div>
 </div>
 </body>

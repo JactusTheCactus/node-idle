@@ -2,9 +2,9 @@
 <div class="title">tsconfig.yml</div>
 <div class="content">
 <pre class="highlight"><code class="language-yml" data-lang="yml">_config:
-  es: &amp;es ESNext
-  t: &amp;t true
-  f: &amp;f false
+  - &amp;es ESNext
+  - &amp;t true
+  - &amp;f false
 compilerOptions:
   target: *es
   module: *es
@@ -18,11 +18,11 @@ compilerOptions:
 <div class="title">tsconfig.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
-  "_config": {
-    "es": "ESNext",
-    "t": true,
-    "f": false
-  },
+  "_config": [
+    "ESNext",
+    true,
+    false
+  ],
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
