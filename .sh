@@ -26,16 +26,16 @@ tsc
 for ascii in *.adoc; do
 	asciidoctor $ascii -o="${ascii%.adoc}.md"
 done
-rm -rf $BIN/*
-TARGETS=
-for i in linux macos win; do
-	TARGETS+=latest-${i%.exe},
-done
-pkg $SCRIPT.js \
-	--targets ${TARGETS%,} \
-	--out-path $BIN
-chmod +x $EXEC
 if flag local; then
+	rm -rf $BIN/*
+	TARGETS=
+	for i in linux macos win; do
+		TARGETS+=latest-${i%.exe},
+	done
+	pkg $SCRIPT.js \
+		--targets ${TARGETS%,} \
+		--out-path $BIN
+	chmod +x $EXEC
 	rm -rf $SCRIPT.log
 	if flag log; then
 		./$EXEC > $SCRIPT.log
