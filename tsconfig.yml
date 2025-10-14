@@ -1,9 +1,11 @@
 _config:
   es: &es ESNext
+  t: &t true
+  f: &f false
 compilerOptions:
   target: *es
   module: *es
   moduleResolution: Bundler
-  strict: false
-  esModuleInterop: false
-  forceConsistentCasingInFileNames: true
+  strict: *f
+  esModuleInterop: *f
+  forceConsistentCasingInFileNames: *t
