@@ -20,70 +20,99 @@ const format = Intl.NumberFormat('en-CA', {
 	useGrouping: true
 })
 function fmt(n: number): string {
-	return format
-		.format(n)
+	return format.format(n)
 }
 const title = "game_title"
-interface State {
+class State {
 	run: boolean
-	key: string | number
+	keys: Array<string | number>
 	bank: number
+	job: boolean
+	constructor() {
+		this.run = true
+		this.keys = []
+		this.bank = 0
+		this.job = false
+	}
+	get quit() {
+		this.run = false
+		return
+	}
+	newKey(key: string | number) {
+		if (!this.keys.includes(String(key))) {
+			this.keys.push(String(key))
+		}
+	}
 }
-interface Collector {
+class Collector {
 	name: string
 	lvl: number
 	income: number
-}
-const currency: string = String.fromCodePoint(0x00A4)
-const state: State = {
-	run: true,
-	key: "",
-	bank: 0
-}
-const income: Collector[] = [
-	{
-		name: "Pocket-Change",
-		lvl: 1,
-		income: 1.5
+	price: number
+	constructor(name: string, income: number, price: number) {
+		this.name = name
+		this.lvl = 1
+		this.income = income
+		this.price = price
 	}
-];
-(async () => {
-	console.clear()
-	console.log(`Welcome to "${title}"!`)
-	await wait(3)
-	while (state.run) {
+	get cost() {
+		return this.price ** (this.lvl - 1)
+	}
+	get gain() {
+		return this.income ** (this.lvl - 1)
+	}
+}
+function main() {
+	const currency: string = String.fromCodePoint(0x00A4)
+	const game = new State()
+	const income: Collector[] = [
+		new Collector("Pocket-Change", 1.5, 1.5)
+	];
+	(async () => {
 		console.clear()
-		switch (true) {
-			case /[0-9]/.test(String(state.key)):
-				console.log(state.key)
-				state.key = Number(state.key)
-				if (state.key < income.length) {
-					console.log(state.key)
-					income.at(state.key).lvl++
-				}
-				break
-			default:
-				switch (state.key) {
-					case "q":
-						state.run = false
-						break
-				}
-				break
+		console.log(`Welcome to "${title}"!`)
+		await wait(3)
+		while (game.run) {
+			console.clear()
+			switch (true) {
+				case /\d/.test(String(game.keys[0])):
+					if (!game.job) {
+						game.job = true
+						game.keys[0] = Number(game.keys[0])
+						if (game.keys[0] < income.length) {
+							const n = income.at(game.keys[0])
+							if (game.bank >= n.cost) {
+								console.log(`${fmt(game.bank)} - ${fmt(n.cost)}`)
+								n.lvl++
+								game.bank -= n.cost
+							}
+						}
+					}
+					break
+				default:
+					switch (game.keys[0]) {
+						case "q":
+							game.quit
+							break
+					}
+					break
+			}
+			game.job = false
+			game.keys.shift()
+			onKey("q", (k: string) => game.newKey(k))
+			income.forEach((_, i) => {
+				onKey(String(i + 1).replace(/\d(\d)/, "$1"), () => game.newKey(String(i)))
+			})
+			console.log(`${currency}${fmt(game.bank)}`)
+			income.forEach((n, i) => {
+				console.log(`\t+${currency}${fmt(n.gain)} [${i + 1}] (-${currency}${fmt(n.cost)}) ${n.name} lvl. ${n.lvl}`)
+				game.bank += n.gain
+			})
+			await wait(1)
 		}
-		state.key = ""
-		onKey("q", (k: string) => state.key = k)
-		income.forEach((_, i) => {
-			onKey(i, () => state.key = i+1)
-		})
-		console.log(`${currency}${fmt(state.bank)}`)
-		income.forEach(i => {
-			const gain = i.income ** (i.lvl - 1)
-			console.log(`\t+${currency}${fmt(gain)} (${i.name} lvl. ${i.lvl})`)
-			state.bank += gain
-		})
-		await wait(1)
-	}
-	process.stdin.setRawMode(false);
-	process.stdin.pause();
-	process.exit(0);
-})()
+		process.stdin.setRawMode(false);
+		process.stdin.pause();
+		process.exit(0);
+	})()
+}
+main()
