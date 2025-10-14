@@ -1,4 +1,7 @@
 {
+  "_config": {
+    "es": "ESNext"
+  },
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",

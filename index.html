@@ -440,9 +440,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">tsconfig.yml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yml" data-lang="yml">compilerOptions:
-  target: ESNext
-  module: ESNext
+<pre class="highlight"><code class="language-yml" data-lang="yml">_config:
+  es: &amp;es ESNext
+compilerOptions:
+  target: *es
+  module: *es
   moduleResolution: Bundler
   strict: false
   esModuleInterop: false
@@ -453,6 +455,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">tsconfig.json</div>
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
+  "_config": {
+    "es": "ESNext"
+  },
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
@@ -467,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-14 12:03:04 UTC
+Last updated 2025-10-14 12:07:30 UTC
 </div>
 </div>
 </body>
