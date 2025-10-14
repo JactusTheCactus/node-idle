@@ -2,9 +2,8 @@
 <div class="title">tsconfig.yml</div>
 <div class="content">
 <pre class="highlight"><code class="language-yml" data-lang="yml">compilerOptions:
-  target: esnext
-  module: nodenext
-  strict: false</code></pre>
+  moduleResolution: nodenext
+  module: nodenext</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -12,9 +11,8 @@
 <div class="content">
 <pre class="highlight"><code class="language-json" data-lang="json">{
   "compilerOptions": {
-    "target": "esnext",
-    "module": "nodenext",
-    "strict": false
+    "moduleResolution": "nodenext",
+    "module": "nodenext"
   }
 }</code></pre>
 </div>
