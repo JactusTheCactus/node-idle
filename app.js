@@ -37,9 +37,8 @@ class State {
         this.bank = 0;
         this.job = false;
     }
-    get quit() {
+    quit() {
         this.run = false;
-        return;
     }
     newKey(key) {
         if (!this.keys.includes(String(key))) {
@@ -95,7 +94,7 @@ function main() {
                 default:
                     switch (game.keys[0]) {
                         case "q":
-                            game.quit;
+                            game.quit();
                             break;
                     }
                     break;
