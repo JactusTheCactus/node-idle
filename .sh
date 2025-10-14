@@ -23,13 +23,8 @@ if [ -f *.yaml ]; then
 fi
 ymlToJson tsconfig
 tsc
-for ascii in docs/*.adoc; do
-	out=${ascii%.adoc}
-	asciidoctor $ascii -o=$out -s
-	mv $out ${out#docs/}.md
-	asciidoctor $ascii -o=$out
-	mv $out ${out#docs/}.html
-done
+asciidoctor page.adoc -o=README.md -s
+asciidoctor page.adoc -o=index.html
 if flag local; then
 	if flag build; then
 		rm -rf $BIN/*
