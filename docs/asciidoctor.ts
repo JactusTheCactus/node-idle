@@ -7,7 +7,7 @@ function compile(
 	opt: Record<string, (string | boolean)> = {},
 	reg: Array<[RegExp, string]> = []
 ) {
-	const game_name = "Untitled Idle"
+	const game_name:string = "Untitled Idle"
 	opt.safe = "unsafe"
 	reg.push([
 		/\{\{(.*?)\}\}/g,
