@@ -14,7 +14,6 @@ function compile(
 		(_:string,code:string):string => String(eval(code))
 	])
 	const doc = fs.readFileSync(adoc, "utf8");
-	console.log(out, opt)
 	let compiled = processor.convert(doc, opt) as string
 	reg.forEach(([r, s]) => {
 		compiled = compiled.replace(r, s);
