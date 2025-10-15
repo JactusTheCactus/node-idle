@@ -5,7 +5,7 @@ function compile(adoc, out, opt = {}, reg = []) {
     opt.safe = "unsafe";
     reg.push([
         /\{\{game_name\}\}/g,
-        "Idle Game"
+        "Untitled Idle Game"
     ]);
     const doc = fs.readFileSync(adoc, "utf8");
     console.log(out, opt);

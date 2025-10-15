@@ -1,5 +1,5 @@
 <div class="listingblock">
-<div class="title">Idle Game</div>
+<div class="title">Untitled Idle Game</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">process.stdin.setRawMode(true);
 process.stdin.setEncoding('utf8');
@@ -25,7 +25,7 @@ const format = Intl.NumberFormat('en-CA', {
 function fmt(n: number): string {
 	return format.format(n)
 }
-const title = "Idle Game"
+const title = "Untitled Idle Game"
 class State {
 	run: boolean
 	keys: Array&lt;string | number&gt;
