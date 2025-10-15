@@ -23,7 +23,7 @@ const format = Intl.NumberFormat('en-CA', {
 function fmt(n) {
     return format.format(n);
 }
-const title = "{{game_name}}";
+const title = "{{ game.title }}";
 class State {
     run;
     keys;
