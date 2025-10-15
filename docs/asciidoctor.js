@@ -10,7 +10,20 @@ function compile(adoc, out, opt = {}, reg = []) {
     opt.safe = "unsafe";
     reg.push([
         /\{\{\s*(.*?)\s*\}\}/g,
-        (_, code) => String(config[code])
+        (_, key) => {
+            const keys = key.split(".");
+            let value = config;
+            for (const k of keys) {
+                if (value && k in value) {
+                    value = value[k];
+                }
+                else {
+                    value = `{{ ${key} }}`;
+                    break;
+                }
+            }
+            return value;
+        }
     ]);
     const doc = fs.readFileSync(adoc, "utf8");
     let compiled = processor.convert(doc, opt);
