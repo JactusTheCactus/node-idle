@@ -11,7 +11,7 @@ function compile(
 	opt.safe = "unsafe"
 	reg.push([
 		/\{\{(.*?)\}\}/g,
-		(_,code) => eval(code)
+		(_,code:string) => eval(code)
 	])
 	const doc = fs.readFileSync(adoc, "utf8");
 	console.log(out, opt)
