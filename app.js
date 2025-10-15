@@ -105,7 +105,13 @@ function main() {
             });
             console.log(`${currency}${fmt(game.bank)}`);
             income.forEach((n, i) => {
-                console.log(`\t+${currency}${fmt(n.gain)} [${i + 1}] (-${currency}${fmt(n.cost)}) ${n.name} lvl. ${n.lvl}`);
+                console.log([
+                    `\t+${currency}${fmt(n.gain)}`,
+                    `[${i + 1}]`,
+                    `(-${currency}${fmt(n.cost)})`,
+                    `${n.name}`,
+                    `lvl. ${n.lvl}`
+                ].join(" "));
                 game.bank += n.gain;
             });
             await wait(1);

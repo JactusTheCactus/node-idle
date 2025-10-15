@@ -144,7 +144,13 @@ function main() {
             });
             console.log(`${currency}${fmt(game.bank)}`);
             income.forEach((n, i) =&gt; {
-                console.log(`\t+${currency}${fmt(n.gain)} [${i + 1}] (-${currency}${fmt(n.cost)}) ${n.name} lvl. ${n.lvl}`);
+                console.log([
+                    `\t+${currency}${fmt(n.gain)}`,
+                    `[${i + 1}]`,
+                    `(-${currency}${fmt(n.cost)})`,
+                    `${n.name}`,
+                    `lvl. ${n.lvl}`
+                ].join(" "));
                 game.bank += n.gain;
             });
             await wait(1);
@@ -160,7 +166,7 @@ main();</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-15 10:05:42 UTC
+Last updated 2025-10-15 10:11:21 UTC
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
