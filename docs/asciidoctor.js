@@ -9,7 +9,6 @@ function compile(adoc, out, opt = {}, reg = []) {
         (_, code) => String(eval(code))
     ]);
     const doc = fs.readFileSync(adoc, "utf8");
-    console.log(out, opt);
     let compiled = processor.convert(doc, opt);
     reg.forEach(([r, s]) => {
         compiled = compiled.replace(r, s);
