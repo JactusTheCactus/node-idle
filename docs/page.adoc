@@ -1,10 +1,10 @@
-:title: {{game_name}}
+:title: {{game.title}}
 :source-highlighter: highlight.js
 :stylesheet: style.css
 
-= {{game_name}}
+= {{game.title}}
 
-.{{game_name}}
+.{{game.title}}
 [,js]
 ----
 include::../app.ts[]
