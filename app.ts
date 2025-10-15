@@ -22,7 +22,7 @@ const format = Intl.NumberFormat('en-CA', {
 function fmt(n: number): string {
 	return format.format(n)
 }
-const title = "{{game_name}}"
+const title = "{{game.title}}"
 class State {
 	run: boolean
 	keys: Array<string | number>
