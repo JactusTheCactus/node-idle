@@ -5,7 +5,7 @@ function compile(
 	adoc: string,
 	out: string,
 	opt: Record<string, (string | boolean)> = {},
-	reg: Array<[RegExp, string|((substring: string, ...args: any[]) => string)]> = []
+	reg: Array<[RegExp, any]> = []
 ) {
 	const game_name:string = "Untitled Idle"
 	opt.safe = "unsafe"
