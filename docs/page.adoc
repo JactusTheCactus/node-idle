@@ -7,5 +7,5 @@
 .{{game_name}}
 [,js]
 ----
-include::../app.js[]
+include::../app.ts[]
 ----
