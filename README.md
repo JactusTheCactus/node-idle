@@ -1,7 +1,7 @@
 <div class="listingblock">
 <div class="title">tsconfig.yml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yml" data-lang="yml">_config:
+<pre class="highlightjs highlight"><code class="language-yml hljs" data-lang="yml">_config:
   - &amp;es ESNext
   - &amp;t true
   - &amp;f false
@@ -17,7 +17,7 @@ compilerOptions:
 <div class="listingblock">
 <div class="title">tsconfig.json</div>
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "_config": [
     "ESNext",
     true,

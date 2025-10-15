@@ -1,5 +1,7 @@
 :allow-uri-read:
 
+:source-highlighter: highlight.js
+
 .tsconfig.yml
 [source,yml]
 ----

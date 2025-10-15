@@ -432,6 +432,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
@@ -440,7 +441,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">tsconfig.yml</div>
 <div class="content">
-<pre class="highlight"><code class="language-yml" data-lang="yml">_config:
+<pre class="highlightjs highlight"><code class="language-yml hljs" data-lang="yml">_config:
   - &amp;es ESNext
   - &amp;t true
   - &amp;f false
@@ -456,7 +457,7 @@ compilerOptions:
 <div class="listingblock">
 <div class="title">tsconfig.json</div>
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">{
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
   "_config": [
     "ESNext",
     true,
@@ -476,8 +477,15 @@ compilerOptions:
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-14 12:13:09 UTC
+Last updated 2025-10-14 20:38:35 -0700
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code[data-lang]')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>
