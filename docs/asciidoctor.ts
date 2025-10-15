@@ -7,13 +7,15 @@ function compile(
 	opt: Record<string, (string | boolean)> = {},
 	reg: Array<[RegExp, any]> = []
 ) {
-	const game = {
-		title: "Untitled"
+	const config = {
+		game: {
+			title: "Untitled"
+		}
 	}
 	opt.safe = "unsafe"
 	reg.push([
 		/\{\{\s*(.*?)\s*\}\}/g,
-		(_:string,code:string):string => String(eval(`typeof ${code} !== 'undefined' ? ${code} : \`{{ ${code} }}\``))
+		(_:string,code:string):string => String(config[code])
 	])
 	const doc = fs.readFileSync(adoc, "utf8");
 	let compiled = processor.convert(doc, opt) as string
