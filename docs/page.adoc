@@ -2,7 +2,7 @@
 :source-highlighter: highlight.js
 :stylesheet: style.css
 
-= {{game.title}}
+== {{game.title}}
 
 .app.ts
 [,js]
