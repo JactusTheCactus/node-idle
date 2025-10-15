@@ -1,7 +1,7 @@
 <div class="listingblock">
 <div class="title">Idle Game</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-ts hljs" data-lang="ts">process.stdin.setRawMode(true);
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">process.stdin.setRawMode(true);
 process.stdin.setEncoding('utf8');
 const keyCallbacks = {};
 process.stdin.on("data", (key) =&gt; {
