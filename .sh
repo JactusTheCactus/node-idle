@@ -29,6 +29,7 @@ if [ -f *.yaml ]; then
 fi
 ymlToJson tsconfig
 tsc
+# {{Copy "Fira Code"}}
 sass docs/style.scss docs/style.css
 DOCS=( \
 	"README.md -s" \
