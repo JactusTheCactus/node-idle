@@ -1,3 +1,6 @@
+<div class="sect1">
+<h2 id="_game_title">Untitled</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="title">app.ts</div>
 <div class="content">
@@ -124,5 +127,7 @@ function main() {
 	})()
 }
 main()</code></pre>
+</div>
+</div>
 </div>
 </div>
