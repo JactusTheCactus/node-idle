@@ -11,8 +11,14 @@ ymlToJson() {
 SCRIPT=app
 BIN=bin
 EXEC=$BIN/$SCRIPT-linux
+PACKAGES=( \
+	pkg \
+	typescript \
+	asciidoctor \
+	sass \
+)
 if ! flag local; then
-	for i in pkg typescript asciidoctor; do
+	for i in "${PACKAGES[@]}"; do
 		npm install -g $i
 	done
 fi
@@ -23,13 +29,15 @@ if [ -f *.yaml ]; then
 fi
 ymlToJson tsconfig
 tsc
+sass docs/style.scss docs/style.css
 DOCS=( \
 	"README.md -s" \
 	index.html \
 )
-for i in "${DOCS[@]}"; do
-	asciidoctor docs/page.adoc -o=$i
-done
+(
+	cd docs
+	node asciidoctor.js
+)
 if flag local; then
 	if flag build; then
 		rm -rf $BIN/*

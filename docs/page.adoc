@@ -1,9 +1,11 @@
-:allow-uri-read:
+:title: {{game_name}}
 :source-highlighter: highlight.js
-:title: game_title
+:stylesheet: style.css
 
-.app.ts
-[source,ts]
+= {{game_name}}
+
+.{{game_name}}
+[,ts]
 ----
-include::../app.ts[]
+include::../app.js[]
 ----

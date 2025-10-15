@@ -2,6 +2,7 @@
   "name": "idle",
   "version": "1.0.0",
   "description": "",
+  "type":"module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "asciidoctor": "^3.0.4",
     "pkg": "^5.8.1",
+    "sass": "^1.93.2",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
