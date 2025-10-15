@@ -104,7 +104,7 @@ function main() {
             game.keys.shift();
             onKey("q", (k) =&gt; game.newKey(k));
             income.forEach((_, i) =&gt; {
-                onKey(String(i + 1).replace(/\d(\d)/, "$1"), () =&gt; game.newKey(String(i)));
+                onKey(String(i + 1).replace(/\d*(\d)/, "$1"), () =&gt; game.newKey(String(i)));
             });
             console.log(`${currency}${fmt(game.bank)}`);
             income.forEach((n, i) =&gt; {
