@@ -7,10 +7,11 @@ function compile(
 	opt: Record<string, (string | boolean)> = {},
 	reg: Array<[RegExp, string]> = []
 ) {
+	const game_name = "Untitled Idle"
 	opt.safe = "unsafe"
 	reg.push([
-		/\{\{game_name\}\}/g,
-		"Untitled Idle Game"
+		/\{\{(.*?)\}\}/g,
+		(_,code) => eval(code)
 	])
 	const doc = fs.readFileSync(adoc, "utf8");
 	console.log(out, opt)
