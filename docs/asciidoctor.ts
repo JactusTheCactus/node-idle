@@ -26,7 +26,7 @@ function compile(
 					break
 				}
 			}
-			return String(value)
+			return value
 		}
 	])
 	const doc = fs.readFileSync(adoc, "utf8");
