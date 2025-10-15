@@ -17,7 +17,7 @@ function compile(
 		/\{\{\s*(.*?)\s*\}\}/g,
 		(_,key) => {
 			const keys = key.split(".")
-			let value = config
+			let value:any = config
 			for (const k of keys) {
 				if (value && k in value) {
 					value = value[k]
