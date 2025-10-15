@@ -23,8 +23,13 @@ if [ -f *.yaml ]; then
 fi
 ymlToJson tsconfig
 tsc
-asciidoctor page.adoc -o=README.md -s
-asciidoctor page.adoc -o=index.html
+DOCS=( \
+	"README.md -s" \
+	index.html \
+)
+for i in "${DOCS[@]}"; do
+	asciidoctor docs/page.adoc -o=$i
+done
 if flag local; then
 	if flag build; then
 		rm -rf $BIN/*

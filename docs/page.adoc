@@ -1,0 +1,9 @@
+:allow-uri-read:
+:source-highlighter: highlight.js
+:title: game_title
+
+.app.ts
+[source,ts]
+----
+include::../app.ts[]
+----
