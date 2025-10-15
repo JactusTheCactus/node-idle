@@ -13,7 +13,7 @@ function compile(
 	opt.safe = "unsafe"
 	reg.push([
 		/\{\{\s*(.*?)\s*\}\}/g,
-		(_:string,code:string):string => String(eval(`${code} || \`{{ ${code} }}\``))
+		(_:string,code:string):string => String(eval(`${code} || \`{{ $\{code\} }}\``))
 	])
 	const doc = fs.readFileSync(adoc, "utf8");
 	let compiled = processor.convert(doc, opt) as string
