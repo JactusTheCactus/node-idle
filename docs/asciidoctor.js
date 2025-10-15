@@ -6,9 +6,7 @@ function compile(adoc, out, opt = {}, reg = []) {
     opt.safe = "unsafe";
     reg.push([
         /\{\{(.*?)\}\}/g,
-        (_, code) => {
-            return String(eval(code));
-        }
+        (_, code) => String(eval(code))
     ]);
     const doc = fs.readFileSync(adoc, "utf8");
     console.log(out, opt);
