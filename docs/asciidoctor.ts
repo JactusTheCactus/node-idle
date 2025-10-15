@@ -15,7 +15,19 @@ function compile(
 	opt.safe = "unsafe"
 	reg.push([
 		/\{\{\s*(.*?)\s*\}\}/g,
-		(_:string,code:string):string => String(config[code])
+		(_,key) => {
+			const keys = key.split(".")
+			let value = config
+			for (const k of keys) {
+				if (value && k in value) {
+					value = value[k]
+				} else {
+					value = `{{ ${key} }}`
+					break
+				}
+			}
+			return String(value)
+		}
 	])
 	const doc = fs.readFileSync(adoc, "utf8");
 	let compiled = processor.convert(doc, opt) as string
