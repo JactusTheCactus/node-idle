@@ -1,5 +1,4 @@
 <div class="listingblock">
-<div class="title">app.ts</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">process.stdin.setRawMode(true);
 process.stdin.setEncoding('utf8');
