@@ -4,7 +4,6 @@
 
 = {{ game.title }}
 
-.app.ts
 [,js]
 ----
 include::../app.ts[]
