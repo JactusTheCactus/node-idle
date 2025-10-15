@@ -11,7 +11,7 @@ function compile(
 	opt.safe = "unsafe"
 	reg.push([
 		/\{\{(.*?)\}\}/g,
-		(_:string,code:string):string => {
+		(_,code) => {
 			return String(eval(code))
 		}
 	])
