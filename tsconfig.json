@@ -1,15 +1,9 @@
 {
-  "_config": [
-    "ESNext",
-    true,
-    false
-  ],
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "strict": false,
-    "esModuleInterop": false,
-    "forceConsistentCasingInFileNames": true
+    "esModuleInterop": false
   }
 }

@@ -1,47 +1,65 @@
-import asciidoctor from '@asciidoctor/core';
+import { config } from "../data.js";
+import fs from "fs";
+import asciidoctor from "@asciidoctor/core";
 const processor = asciidoctor();
-import fs from 'fs';
-function compile(adoc, out, opt = {}, reg = []) {
-    const config = {
-        game: {
-            title: "Untitled"
-        }
-    };
-    opt.safe = "unsafe";
+import TurndownService from "turndown";
+function compile(out, ext, reg = []) {
     reg.push([
         /\{\{\s*(.*?)\s*\}\}/g,
         (_, key) => {
             const keys = key.split(".");
-            let value = config;
-            for (const k of keys) {
-                if (value && k in value) {
-                    value = value[k];
-                }
-                else {
-                    value = `{{ ${key} }}`;
-                    break;
-                }
-            }
-            return value;
+            return keys.reduce((v, k) => v?.[k], config) ?? `{{ ${key} }}`;
         }
     ]);
-    const doc = fs.readFileSync(adoc, "utf8");
-    let compiled = processor.convert(doc, opt);
-    reg.forEach(([r, s]) => {
-        compiled = compiled.replace(r, s);
-    });
-    fs.writeFileSync(`../${out}`, compiled);
+    const doc = fs.readFileSync("page.adoc", "utf8");
+    let opt = {
+        safe: "unsafe"
+    };
+    function c() {
+        let comp = String(processor.convert(doc, opt));
+        reg.forEach(([r, s]) => {
+            comp = comp.replace(r, s);
+        });
+        return comp;
+    }
+    let compiled;
+    switch (ext) {
+        case "md":
+            opt.standalone = false;
+            const turndownService = new TurndownService({
+                headingStyle: "atx",
+                codeBlockStyle: "fenced"
+            });
+            turndownService.addRule("fencedCodeWithLanguage", {
+                filter: "code",
+                replacement: function (content, node) {
+                    const el = node;
+                    const className = el.getAttribute('class') || '';
+                    const languageMatch = className.match(/language-(\S+)/);
+                    const language = languageMatch ? languageMatch[1] : '';
+                    return [
+                        "```" + language,
+                        content,
+                        "```"
+                    ].join("\n");
+                }
+            });
+            compiled = turndownService.turndown(c());
+            break;
+        case "html":
+            opt.standalone = true;
+            compiled = c().replace(/(?<=language-)(t(?:ype)?s(?:cript)?)(?= hljs)/g, (_, match) => {
+                switch (match) {
+                    case "ts": return "js";
+                    case "typescript": return "javascript";
+                }
+            });
+            break;
+    }
+    fs.writeFileSync(`../${out}.${ext}`, compiled);
 }
 const tasks = [
-    [
-        "page.adoc",
-        "index.html",
-        { standalone: true }
-    ],
-    [
-        "page.adoc",
-        "README.md",
-        { standalone: false }
-    ]
+    ["index", "html"],
+    ["README", "md"]
 ];
 tasks.forEach(i => compile(...i));

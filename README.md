@@ -1,20 +1,19 @@
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">process.stdin.setRawMode(true);
+```typescript
+process.stdin.setRawMode(true);
 process.stdin.setEncoding('utf8');
-const keyCallbacks: Record&lt;string, Function[]&gt; = {}
-process.stdin.on("data", (key: string) =&gt; {
+const keyCallbacks: Record<string, Function[]> = {}
+process.stdin.on("data", (key: string) => {
 	if (keyCallbacks[key]) {
-		keyCallbacks[key].forEach(cb =&gt; cb(key))
+		keyCallbacks[key].forEach(cb => cb(key))
 	}
 })
 function wait(t: number) {
-	return new Promise(resolve =&gt; setTimeout(resolve, t * 1000))
+	return new Promise(resolve => setTimeout(resolve, t * 1000))
 }
-const onKey = (targetKey: string | number, callback: Function) =&gt; {
+const onKey = (targetKey: string | number, callback: Function) => {
 	if (!keyCallbacks[targetKey]) keyCallbacks[targetKey] = []
 	keyCallbacks[targetKey].push(callback)
-	return () =&gt; keyCallbacks[targetKey] = keyCallbacks[targetKey].filter(cb =&gt; cb !== callback)
+	return () => keyCallbacks[targetKey] = keyCallbacks[targetKey].filter(cb => cb !== callback)
 }
 const format = Intl.NumberFormat('en-CA', {
 	minimumFractionDigits: 2,
@@ -27,7 +26,7 @@ function fmt(n: number): string {
 const title = "Untitled"
 class State {
 	run: boolean
-	keys: Array&lt;string | number&gt;
+	keys: Array<string | number>
 	bank: number
 	job: boolean
 	constructor() {
@@ -69,7 +68,7 @@ function main() {
 	const income: Collector[] = [
 		new Collector("Pocket-Change", 1.5, 1.5)
 	];
-	(async () =&gt; {
+	(async () => {
 		console.clear()
 		console.log(`Welcome to "${title}"!`)
 		await wait(3)
@@ -80,9 +79,9 @@ function main() {
 					if (!game.job) {
 						game.job = true
 						game.keys[0] = Number(game.keys[0])
-						if (game.keys[0] &lt; income.length) {
+						if (game.keys[0] < income.length) {
 							const n = income.at(game.keys[0])
-							if (game.bank &gt;= n.cost) {
+							if (game.bank >= n.cost) {
 								console.log(`${fmt(game.bank)} - ${fmt(n.cost)}`)
 								n.lvl++
 								game.bank -= n.cost
@@ -100,12 +99,12 @@ function main() {
 			}
 			game.job = false
 			game.keys.shift()
-			onKey("q", (k: string) =&gt; game.newKey(k))
-			income.forEach((_, i) =&gt; {
-				onKey(String(i + 1).replace(/\d*(\d)/, "$1"), () =&gt; game.newKey(String(i)))
+			onKey("q", (k: string) => game.newKey(k))
+			income.forEach((_, i) => {
+				onKey(String(i + 1).replace(/\d*(\d)/, "$1"), () => game.newKey(String(i)))
 			})
 			console.log(`${currency}${fmt(game.bank)}`)
-			income.forEach((n, i) =&gt; {
+			income.forEach((n, i) => {
 				console.log([
 					`\t+${currency}${fmt(n.gain)}`,
 					`[${i + 1}]`,
@@ -122,6 +121,5 @@ function main() {
 		process.exit(0);
 	})()
 }
-main()</code></pre>
-</div>
-</div>
+main()
+```

@@ -1,11 +1,6 @@
-_config:
-  - &es ESNext
-  - &t true
-  - &f false
 compilerOptions:
-  target: *es
+  target: &es ESNext
   module: *es
   moduleResolution: Bundler
-  strict: *f
-  esModuleInterop: *f
-  forceConsistentCasingInFileNames: *t
+  strict: false
+  esModuleInterop: false

@@ -1,56 +1,77 @@
-import asciidoctor from '@asciidoctor/core'
+import { config } from "../data.js"
+import fs from "fs"
+import asciidoctor from "@asciidoctor/core"
 const processor = asciidoctor()
-import fs from 'fs';
+import TurndownService from "turndown"
 function compile(
-	adoc: string,
 	out: string,
-	opt: Record<string, (string | boolean)> = {},
+	ext: string,
 	reg: Array<[RegExp, any]> = []
 ) {
-	const config = {
-		game: {
-			title: "Untitled"
-		}
-	}
-	opt.safe = "unsafe"
 	reg.push([
 		/\{\{\s*(.*?)\s*\}\}/g,
-		(_,key) => {
+		(_: string, key: string) => {
 			const keys = key.split(".")
-			let value:any = config
-			for (const k of keys) {
-				if (value && k in value) {
-					value = value[k]
-				} else {
-					value = `{{ ${key} }}`
-					break
-				}
-			}
-			return value
+			return keys.reduce(
+				(v, k) => v?.[k], config
+			) ?? `{{ ${key} }}`
 		}
 	])
-	const doc = fs.readFileSync(adoc, "utf8");
-	let compiled = processor.convert(doc, opt) as string
-	reg.forEach(([r, s]) => {
-		compiled = compiled.replace(r, s);
-	})
-	fs.writeFileSync(`../${out}`, compiled);
+	const doc = fs.readFileSync("page.adoc", "utf8");
+	let opt: Record<string, string | boolean> = {
+		safe: "unsafe"
+	}
+	function c() {
+		let comp = String(processor.convert(doc, opt))
+		reg.forEach(([r, s]) => {
+			comp = comp.replace(r, s)
+		})
+		return comp
+	}
+	let compiled: string
+	switch (ext) {
+		case "md":
+			opt.standalone = false
+			const turndownService = new TurndownService({
+				headingStyle: "atx",
+				codeBlockStyle: "fenced"
+			})
+			turndownService.addRule("fencedCodeWithLanguage", {
+				filter: "code",
+				replacement: function (content: string, node) {
+					const el = node as HTMLElement
+					const className = el.getAttribute('class') || '';
+					const languageMatch = className.match(/language-(\S+)/);
+					const language = languageMatch ? languageMatch[1] : '';
+					return [
+						"```" + language,
+						content,
+						"```"
+					].join("\n")
+				}
+			})
+			compiled = turndownService.turndown(c())
+			break
+		case "html":
+			opt.standalone = true
+			compiled = c().replace(
+				/(?<=language-)(t(?:ype)?s(?:cript)?)(?= hljs)/g,
+				(_, match) => {
+					switch (match) {
+						case "ts": return "js"
+						case "typescript": return "javascript"
+					}
+				}
+			)
+			break
+	}
+	fs.writeFileSync(`../${out}.${ext}`, compiled);
 }
 const tasks: Array<[
 	string,
-	string,
-	Record<string, (string | boolean)>?,
-	Array<[RegExp, string]>?
+	string
 ]> = [
-		[
-			"page.adoc",
-			"index.html",
-			{ standalone: true }
-		],
-		[
-			"page.adoc",
-			"README.md",
-			{ standalone: false }
-		]
+		["index", "html"],
+		["README", "md"]
 	]
 tasks.forEach(i => compile(...i))

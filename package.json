@@ -2,7 +2,7 @@
   "name": "idle",
   "version": "1.0.0",
   "description": "",
-  "type":"module",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,9 +14,11 @@
     "asciidoctor": "^3.0.4",
     "pkg": "^5.8.1",
     "sass": "^1.93.2",
+    "turndown": "^7.2.1",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@types/node": "^24.7.2"
+    "@types/node": "^24.7.2",
+    "@types/turndown": "^5.0.5"
   }
 }

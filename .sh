@@ -16,6 +16,7 @@ PACKAGES=( \
 	typescript \
 	asciidoctor \
 	sass \
+	turndown \
 )
 if ! flag local; then
 	for i in "${PACKAGES[@]}"; do
