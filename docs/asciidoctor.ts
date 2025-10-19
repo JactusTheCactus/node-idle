@@ -1,7 +1,7 @@
 import {
 	config,
 	fmt
-} from "../data.js"
+} from "../style.js"
 import fs from "fs"
 import asciidoctor from "@asciidoctor/core"
 const processor = asciidoctor()
@@ -29,6 +29,12 @@ function compile(
 		reg.forEach(([r, s]) => {
 			comp = comp.replace(r, s)
 		})
+		comp = comp.replace(
+			/(?<=<title>).*?(?=<\/title>)/gs,
+			m => {
+				return m.replace(/<[^>]+>/g, "")
+			}
+		)
 		return comp
 	}
 	let compiled: string

@@ -5,23 +5,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>untitled_idle_game</title>
+<title>&lt;untitled_idle_game&gt;</title>
 <style>
 @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";
 @import "https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css";
-@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap");
-html {
-  font-size: 20pt;
-  font-family: "Noto Sans" !important;
+@import "https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap";
+body h6, body h5, body h4, body h3, body h2, body h1,
+body .title {
+  font-family: "Noto Sans", sans-serif !important;
 }
-html .title,
-html h1 {
-  font-family: "Noto Sans" !important;
-}
-html code,
-html #footer-text {
-  font-family: "Fira Code";
-  font-variant-ligatures: contextual;
+
+body code,
+body #footer-text {
+  font-family: "Fira Code", monospace !important;
+  font-variant-ligatures: contextual !important;
 }
 
 /*# sourceMappingURL=style.css.map */
@@ -31,43 +28,147 @@ html #footer-text {
 </head>
 <body class="article">
 <div id="header">
-<h1>untitled_idle_game</h1>
+<h1><code>&lt;untitled_idle_game&gt;</code></h1>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_app_js">app.js</h2>
+<div class="sectionbody">
 <div class="listingblock">
+<div class="title">app.js</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-javascript hljs" data-lang="typescript">const config = {
-	game: {
-		title: "untitled_idle_game"
-	}
+<pre class="highlightjs highlight"><code class="language-js hljs" data-lang="js">process.stdin.setRawMode(true);
+process.stdin.setEncoding("utf8");
+const keyCallbacks = {};
+process.stdin.on("data", (key) =&gt; {
+    if (keyCallbacks[key]) {
+        keyCallbacks[key].forEach(cb =&gt; cb(key));
+    }
+});
+function wait(t) {
+    return new Promise(resolve =&gt; setTimeout(resolve, t * 1000));
 }
-function fmt(input: string | any[] | { [key: string]: any }) {
-	if (input === null) {
-		return
-	} else if (typeof input === "string") {
-		return input.replace(/^(.*?)$/g, "&amp;lt;$1&amp;gt;")
-	} else if (Array.isArray(input)) {
-		return input.map(i =&gt; fmt(i))
-	} else if (typeof input === "object") {
-		return Object.fromEntries(
-			Object
-				.entries(input)
-				.map(([k, v]) =&gt; [k, fmt(v)])
-		)
-	} else {
-		return input
-	}
+const onKey = (targetKey, callback) =&gt; {
+    if (!keyCallbacks[targetKey])
+        keyCallbacks[targetKey] = [];
+    keyCallbacks[targetKey].push(callback);
+    return () =&gt; keyCallbacks[targetKey] = keyCallbacks[targetKey].filter(cb =&gt; cb !== callback);
+};
+const format = Intl.NumberFormat("en-CA", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+    useGrouping: true
+});
+function fmt(n) {
+    return format.format(n);
 }
-export { 
-	config,
-	fmt 
-}</code></pre>
+const title = "<code>&lt;untitled_idle_game&gt;</code>";
+class State {
+    run;
+    keys;
+    bank;
+    job;
+    constructor() {
+        this.run = true;
+        this.keys = [];
+        this.bank = 0;
+        this.job = false;
+    }
+    quit() {
+        this.run = false;
+    }
+    newKey(key) {
+        if (!this.keys.includes(String(key))) {
+            this.keys.push(String(key));
+        }
+    }
+}
+class Collector {
+    name;
+    lvl;
+    income;
+    price;
+    constructor(name, income, price) {
+        this.name = name;
+        this.lvl = 1;
+        this.income = income;
+        this.price = price;
+    }
+    get cost() {
+        return this.price ** (this.lvl - 1);
+    }
+    get gain() {
+        return this.income ** (this.lvl - 1);
+    }
+}
+function main() {
+    const currency = String.fromCodePoint(0x00A4);
+    const game = new State();
+    const income = [
+        new Collector("Pocket-Change", 1.5, 1.5)
+    ];
+    (async () =&gt; {
+        console.clear();
+        console.log(`Welcome to "${title}"!`);
+        await wait(3);
+        while (game.run) {
+            console.clear();
+            switch (true) {
+                case /\d/.test(String(game.keys[0])):
+                    if (!game.job) {
+                        game.job = true;
+                        game.keys[0] = Number(game.keys[0]);
+                        if (game.keys[0] &lt; income.length) {
+                            const n = income.at(game.keys[0]);
+                            if (game.bank &gt;= n.cost) {
+                                console.log(`${fmt(game.bank)} - ${fmt(n.cost)}`);
+                                n.lvl++;
+                                game.bank -= n.cost;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    switch (game.keys[0]) {
+                        case "q":
+                            game.quit();
+                            break;
+                    }
+                    break;
+            }
+            game.job = false;
+            game.keys.shift();
+            onKey("q", (k) =&gt; game.newKey(k));
+            income.forEach((_, i) =&gt; {
+                onKey(String(i + 1).replace(/\d*(\d)/, "$1"), () =&gt; game.newKey(String(i)));
+            });
+            console.log(`${currency}${fmt(game.bank)}`);
+            income.forEach((n, i) =&gt; {
+                console.log([
+                    `\t+${currency}${fmt(n.gain)}`,
+                    `[${i + 1}]`,
+                    `(-${currency}${fmt(n.cost)})`,
+                    `${n.name}`,
+                    `lvl. ${n.lvl}`
+                ].join(" "));
+                game.bank += n.gain;
+            });
+            await wait(1);
+        }
+        process.stdin.setRawMode(false);
+        process.stdin.pause();
+        process.exit(0);
+    })();
+}
+main();</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-19 08:19:00 UTC
+Last updated 2025-10-19 03:50:57 -0700
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

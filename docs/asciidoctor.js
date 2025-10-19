@@ -1,4 +1,4 @@
-import { config } from "../data.js";
+import { config } from "../style.js";
 import fs from "fs";
 import asciidoctor from "@asciidoctor/core";
 const processor = asciidoctor();
@@ -19,6 +19,9 @@ function compile(out, ext, reg = []) {
         let comp = String(processor.convert(doc, opt));
         reg.forEach(([r, s]) => {
             comp = comp.replace(r, s);
+        });
+        comp = comp.replace(/(?<=<title>).*?(?=<\/title>)/gs, m => {
+            return m.replace(/<[^>]+>/g, "");
         });
         return comp;
     }

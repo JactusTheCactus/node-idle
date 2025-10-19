@@ -1,18 +1,30 @@
 @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";
 @import "https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css";
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
-html {
-	font-size: 20pt;
-	font-family: "Noto Sans" !important;
+@import "https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap";
 
-	.title,
-	h1 {
-		font-family: "Noto Sans" !important;
+%el {
+	font-family: "Noto Sans", sans-serif !important;
+}
+
+%mono {
+	font-family: "Fira Code", monospace !important;
+	font-variant-ligatures: contextual !important;
+}
+
+body {
+	%header,
+	.title {
+		@extend %el;
+	}
+
+	@for $i from 1 through 6 {
+		h#{$i} {
+			@extend %header;
+		}
 	}
 
 	code,
 	#footer-text {
-		font-family: "Fira Code";
-		font-variant-ligatures: contextual;
+		@extend %mono;
 	}
 }

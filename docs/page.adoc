@@ -4,7 +4,9 @@
 
 = {{ game.title }}
 
-[,typescript]
+== app.js
+.app.js
+[,js]
 ----
-include::../data.ts[]
+include::../app.js[]
 ----
