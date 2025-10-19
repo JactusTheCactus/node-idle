@@ -1,125 +1,28 @@
 ```typescript
-process.stdin.setRawMode(true);
-process.stdin.setEncoding('utf8');
-const keyCallbacks: Record<string, Function[]> = {}
-process.stdin.on("data", (key: string) => {
-	if (keyCallbacks[key]) {
-		keyCallbacks[key].forEach(cb => cb(key))
-	}
-})
-function wait(t: number) {
-	return new Promise(resolve => setTimeout(resolve, t * 1000))
-}
-const onKey = (targetKey: string | number, callback: Function) => {
-	if (!keyCallbacks[targetKey]) keyCallbacks[targetKey] = []
-	keyCallbacks[targetKey].push(callback)
-	return () => keyCallbacks[targetKey] = keyCallbacks[targetKey].filter(cb => cb !== callback)
-}
-const format = Intl.NumberFormat('en-CA', {
-	minimumFractionDigits: 2,
-	maximumFractionDigits: 2,
-	useGrouping: true
-})
-function fmt(n: number): string {
-	return format.format(n)
-}
-const title = "Untitled"
-class State {
-	run: boolean
-	keys: Array<string | number>
-	bank: number
-	job: boolean
-	constructor() {
-		this.run = true
-		this.keys = []
-		this.bank = 0
-		this.job = false
-	}
-	quit() {
-		this.run = false
-	}
-	newKey(key: string | number) {
-		if (!this.keys.includes(String(key))) {
-			this.keys.push(String(key))
-		}
+const config = {
+	game: {
+		title: "untitled_idle_game"
 	}
 }
-class Collector {
-	name: string
-	lvl: number
-	income: number
-	price: number
-	constructor(name: string, income: number, price: number) {
-		this.name = name
-		this.lvl = 1
-		this.income = income
-		this.price = price
-	}
-	get cost() {
-		return this.price ** (this.lvl - 1)
-	}
-	get gain() {
-		return this.income ** (this.lvl - 1)
+function fmt(input: string | any[] | { [key: string]: any }) {
+	if (input === null) {
+		return
+	} else if (typeof input === "string") {
+		return input.replace(/^(.*?)$/g, "&lt;$1&gt;")
+	} else if (Array.isArray(input)) {
+		return input.map(i => fmt(i))
+	} else if (typeof input === "object") {
+		return Object.fromEntries(
+			Object
+				.entries(input)
+				.map(([k, v]) => [k, fmt(v)])
+		)
+	} else {
+		return input
 	}
 }
-function main() {
-	const currency: string = String.fromCodePoint(0x00A4)
-	const game = new State()
-	const income: Collector[] = [
-		new Collector("Pocket-Change", 1.5, 1.5)
-	];
-	(async () => {
-		console.clear()
-		console.log(`Welcome to "${title}"!`)
-		await wait(3)
-		while (game.run) {
-			console.clear()
-			switch (true) {
-				case /\d/.test(String(game.keys[0])):
-					if (!game.job) {
-						game.job = true
-						game.keys[0] = Number(game.keys[0])
-						if (game.keys[0] < income.length) {
-							const n = income.at(game.keys[0])
-							if (game.bank >= n.cost) {
-								console.log(`${fmt(game.bank)} - ${fmt(n.cost)}`)
-								n.lvl++
-								game.bank -= n.cost
-							}
-						}
-					}
-					break
-				default:
-					switch (game.keys[0]) {
-						case "q":
-							game.quit()
-							break
-					}
-					break
-			}
-			game.job = false
-			game.keys.shift()
-			onKey("q", (k: string) => game.newKey(k))
-			income.forEach((_, i) => {
-				onKey(String(i + 1).replace(/\d*(\d)/, "$1"), () => game.newKey(String(i)))
-			})
-			console.log(`${currency}${fmt(game.bank)}`)
-			income.forEach((n, i) => {
-				console.log([
-					`\t+${currency}${fmt(n.gain)}`,
-					`[${i + 1}]`,
-					`(-${currency}${fmt(n.cost)})`,
-					`${n.name}`,
-					`lvl. ${n.lvl}`
-				].join(" "))
-				game.bank += n.gain
-			})
-			await wait(1)
-		}
-		process.stdin.setRawMode(false);
-		process.stdin.pause();
-		process.exit(0);
-	})()
+export { 
+	config,
+	fmt 
 }
-main()
 ```

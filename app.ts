@@ -1,5 +1,5 @@
 process.stdin.setRawMode(true);
-process.stdin.setEncoding('utf8');
+process.stdin.setEncoding("utf8");
 const keyCallbacks: Record<string, Function[]> = {}
 process.stdin.on("data", (key: string) => {
 	if (keyCallbacks[key]) {
@@ -14,7 +14,7 @@ const onKey = (targetKey: string | number, callback: Function) => {
 	keyCallbacks[targetKey].push(callback)
 	return () => keyCallbacks[targetKey] = keyCallbacks[targetKey].filter(cb => cb !== callback)
 }
-const format = Intl.NumberFormat('en-CA', {
+const format = Intl.NumberFormat("en-CA", {
 	minimumFractionDigits: 2,
 	maximumFractionDigits: 2,
 	useGrouping: true

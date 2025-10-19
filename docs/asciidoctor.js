@@ -34,9 +34,9 @@ function compile(out, ext, reg = []) {
                 filter: "code",
                 replacement: function (content, node) {
                     const el = node;
-                    const className = el.getAttribute('class') || '';
+                    const className = el.getAttribute("class") || "";
                     const languageMatch = className.match(/language-(\S+)/);
-                    const language = languageMatch ? languageMatch[1] : '';
+                    const language = languageMatch ? languageMatch[1] : "";
                     return [
                         "```" + language,
                         content,
@@ -52,6 +52,7 @@ function compile(out, ext, reg = []) {
                 switch (match) {
                     case "ts": return "js";
                     case "typescript": return "javascript";
+                    default: return match;
                 }
             });
             break;

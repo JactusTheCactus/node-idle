@@ -6,5 +6,5 @@
 
 [,typescript]
 ----
-include::../app.ts[]
+include::../data.ts[]
 ----

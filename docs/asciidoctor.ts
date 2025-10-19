@@ -1,4 +1,7 @@
-import { config } from "../data.js"
+import {
+	config,
+	fmt
+} from "../data.js"
 import fs from "fs"
 import asciidoctor from "@asciidoctor/core"
 const processor = asciidoctor()
@@ -40,9 +43,9 @@ function compile(
 				filter: "code",
 				replacement: function (content: string, node) {
 					const el = node as HTMLElement
-					const className = el.getAttribute('class') || '';
+					const className = el.getAttribute("class") || "";
 					const languageMatch = className.match(/language-(\S+)/);
-					const language = languageMatch ? languageMatch[1] : '';
+					const language = languageMatch ? languageMatch[1] : "";
 					return [
 						"```" + language,
 						content,
@@ -60,6 +63,7 @@ function compile(
 					switch (match) {
 						case "ts": return "js"
 						case "typescript": return "javascript"
+						default: return match
 					}
 				}
 			)
@@ -67,11 +71,8 @@ function compile(
 	}
 	fs.writeFileSync(`../${out}.${ext}`, compiled);
 }
-const tasks: Array<[
-	string,
-	string
-]> = [
-		["index", "html"],
-		["README", "md"]
-	]
+const tasks: Array<[string, string]> = [
+	["index", "html"],
+	["README", "md"]
+]
 tasks.forEach(i => compile(...i))
